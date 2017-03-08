@@ -1,4 +1,4 @@
-FROM rabbitmq:alpine
+FROM mathewdgardner/rabbitmq:alpine-arm
 
 RUN rabbitmq-plugins enable --offline rabbitmq_management
 

@@ -1,4 +1,6 @@
-FROM alpine:3.5
+FROM container4armhf/armhf-alpine
+
+RUN echo "https://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
 
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
 RUN addgroup -S rabbitmq && adduser -S -h /var/lib/rabbitmq -G rabbitmq rabbitmq
@@ -86,7 +88,7 @@ RUN ln -sf /var/lib/rabbitmq/.erlang.cookie /root/
 RUN ln -sf "$RABBITMQ_HOME/plugins" /plugins
 
 COPY docker-entrypoint.sh /usr/local/bin/
-ENTRYPOINT ["docker-entrypoint.sh"]
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 
 EXPOSE 4369 5671 5672 25672
 CMD ["rabbitmq-server"]
